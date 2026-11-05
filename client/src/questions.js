@@ -1,3 +1,4 @@
+
 export const questions = [
   {
     id: "education",
@@ -13,6 +14,7 @@ export const questions = [
       { value: "graduate", label: { en: "Graduate", hi: "ग्रेजुएट", mr: "पदवीधर" } },
     ],
   },
+
   {
     id: "work",
     text: {
@@ -27,6 +29,36 @@ export const questions = [
       { value: "none", label: { en: "No work right now", hi: "अभी कोई काम नहीं", mr: "सध्या काम नाही" } },
     ],
   },
+
+  {
+    id: "experience",
+    text: {
+      en: "How many years of work experience do you have?",
+      hi: "आपके पास कितने साल का काम का अनुभव है?",
+      mr: "तुमच्याकडे किती वर्षांचा कामाचा अनुभव आहे?",
+    },
+    options: [
+      { value: "none", label: { en: "No experience", hi: "कोई अनुभव नहीं", mr: "अनुभव नाही" } },
+      { value: "below_1", label: { en: "Less than 1 year", hi: "1 साल से कम", mr: "१ वर्षापेक्षा कमी" } },
+      { value: "1_to_2", label: { en: "1–2 years", hi: "1–2 साल", mr: "१–२ वर्षे" } },
+      { value: "3_or_more", label: { en: "3 or more years", hi: "3 साल या अधिक", mr: "३ किंवा अधिक वर्षे" } },
+    ],
+  },
+
+  {
+    id: "certificate",
+    text: {
+      en: "Do you have an ITI, NTC, NAC or CITS certificate?",
+      hi: "क्या आपके पास ITI, NTC, NAC या CITS प्रमाणपत्र है?",
+      mr: "तुमच्याकडे ITI, NTC, NAC किंवा CITS प्रमाणपत्र आहे का?",
+    },
+    options: [
+      { value: "yes", label: { en: "Yes", hi: "हाँ", mr: "होय" } },
+      { value: "no", label: { en: "No", hi: "नहीं", mr: "नाही" } },
+      { value: "unsure", label: { en: "Not sure", hi: "पता नहीं", mr: "माहित नाही" } },
+    ],
+  },
+
   {
     id: "preference",
     text: {
