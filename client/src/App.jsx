@@ -4,11 +4,18 @@ import { db } from "./firebase";
 import { questions } from "./questions";
 import { speak } from "./speak";
 import { listen } from "./listen";
+import { recommend } from "./recommend";
 
 const ui = {
   en: { title: "Find your path", start: "Start", done: "Thank you!", restart: "Start again", question: "Question", speak: "🎤 Speak your answer", listening: "Listening...", notUnderstood: "Sorry, I did not understand. Please tap a button." },
   hi: { title: "अपना रास्ता खोजें", start: "शुरू करें", done: "धन्यवाद!", restart: "फिर से शुरू करें", question: "प्रश्न", speak: "🎤 बोलकर जवाब दें", listening: "सुन रहा हूँ...", notUnderstood: "माफ़ कीजिए, समझ नहीं आया। कृपया बटन दबाएँ।" },
   mr: { title: "तुमचा मार्ग शोधा", start: "सुरू करा", done: "धन्यवाद!", restart: "पुन्हा सुरू करा", question: "प्रश्न", speak: "🎤 बोलून उत्तर द्या", listening: "ऐकत आहे...", notUnderstood: "माफ करा, समजले नाही. कृपया बटण दाबा." },
+};
+
+const suggestedTitle = {
+  en: "Paths that may suit you",
+  hi: "आपके लिए ये रास्ते अच्छे हो सकते हैं",
+  mr: "तुमच्यासाठी हे मार्ग योग्य असू शकतात",
 };
 
 const bigButton = { display: "block", width: "100%", maxWidth: 360, margin: "12px auto", fontSize: 22, padding: "14px 20px" };
@@ -122,9 +129,16 @@ export default function App() {
       {screen === "done" && (
         <>
           <h1>{ui[lang].done}</h1>
-          <pre style={{ textAlign: "left", display: "inline-block" }}>
-            {JSON.stringify(answers, null, 2)}
-          </pre>
+          <h2>{suggestedTitle[lang]}</h2>
+          {recommend(answers).map((t) => (
+            <div
+              key={t.id}
+              style={{ background: "white", borderRadius: 12, padding: 16, margin: "12px auto", maxWidth: 360, textAlign: "left" }}
+            >
+              <h3>{t.name[lang]}</h3>
+              <p>{t.summary[lang]}</p>
+            </div>
+          ))}
           <p>{saveStatus}</p>
           <button style={bigButton} onClick={restart}>{ui[lang].restart}</button>
         </>
