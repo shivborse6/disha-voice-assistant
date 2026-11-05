@@ -1,4 +1,6 @@
 import { useState } from "react";
+import { collection, addDoc, serverTimestamp } from "firebase/firestore";
+import { db } from "./firebase";
 import { questions } from "./questions";
 import { speak } from "./speak";
 import { listen } from "./listen";
@@ -18,14 +20,32 @@ export default function App() {
   const [answers, setAnswers] = useState({});
   const [listening, setListening] = useState(false);
   const [message, setMessage] = useState("");
+  const [saveStatus, setSaveStatus] = useState("");
+
+  async function saveProfile(finalAnswers) {
+    setSaveStatus("Saving...");
+    try {
+      await addDoc(collection(db, "profiles"), {
+        answers: finalAnswers,
+        language: lang,
+        createdAt: serverTimestamp(),
+      });
+      setSaveStatus("Saved ✓");
+    } catch (error) {
+      console.error(error);
+      setSaveStatus("Could not save");
+    }
+  }
 
   function handleAnswer(questionId, value) {
     setMessage("");
-    setAnswers({ ...answers, [questionId]: value });
+    const updated = { ...answers, [questionId]: value };
+    setAnswers(updated);
     if (step + 1 < questions.length) {
       setStep(step + 1);
     } else {
       setScreen("done");
+      saveProfile(updated);
     }
   }
 
@@ -33,6 +53,7 @@ export default function App() {
     setAnswers({});
     setStep(0);
     setMessage("");
+    setSaveStatus("");
     setScreen("home");
   }
 
@@ -104,6 +125,7 @@ export default function App() {
           <pre style={{ textAlign: "left", display: "inline-block" }}>
             {JSON.stringify(answers, null, 2)}
           </pre>
+          <p>{saveStatus}</p>
           <button style={bigButton} onClick={restart}>{ui[lang].restart}</button>
         </>
       )}
