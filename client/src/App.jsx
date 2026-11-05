@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { collection, addDoc, serverTimestamp } from "firebase/firestore";
 import { db } from "./firebase";
@@ -6,6 +5,7 @@ import { questions } from "./questions";
 import { speak } from "./speak";
 import { listen } from "./listen";
 import { recommend, recommendQualifications } from "./recommend";
+import FamilyGuide from "./FamilyGuide";
 
 const ui = {
   en: {
@@ -386,19 +386,19 @@ export default function App() {
                 </p>
 
                 {qualification.matchedRoute && (
-  <p>
-    <strong>{ui[lang].matchedRoute}:</strong>{" "}
-    {qualification.matchedRoute.education === "12th"
-      ? "12th pass with no experience"
-      : qualification.matchedRoute.education === "10th" &&
-        qualification.matchedRoute.certificate === "yes"
-      ? "10th pass with NTC/NAC/CITS"
-      : qualification.matchedRoute.education === "10th" &&
-        qualification.matchedRoute.experience === "3_or_more"
-      ? "10th pass with 3 years of experience"
-      : "Other entry route"}
-  </p>
-)}
+                  <p>
+                    <strong>{ui[lang].matchedRoute}:</strong>{" "}
+                    {qualification.matchedRoute.education === "12th"
+                      ? "12th pass with no experience"
+                      : qualification.matchedRoute.education === "10th" &&
+                        qualification.matchedRoute.certificate === "yes"
+                      ? "10th pass with NTC/NAC/CITS"
+                      : qualification.matchedRoute.education === "10th" &&
+                        qualification.matchedRoute.experience === "3_or_more"
+                      ? "10th pass with 3 years of experience"
+                      : "Other entry route"}
+                  </p>
+                )}
 
                 <p>
                   <a
@@ -429,6 +429,14 @@ export default function App() {
           >
             {ui[lang].disclaimer}
           </p>
+
+          {/* Family decision-support */}
+          <div style={{ maxWidth: 460, margin: "0 auto" }}>
+            <FamilyGuide
+              qualifications={qualificationRecommendations}
+              lang={lang}
+            />
+          </div>
 
           <p>{saveStatus}</p>
 
