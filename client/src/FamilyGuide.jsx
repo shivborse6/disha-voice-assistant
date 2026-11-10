@@ -100,13 +100,38 @@ const T = {
   },
 };
 
+const cardStyle = {
+  background: "#fff",
+  borderRadius: 14,
+  padding: 18,
+  marginBottom: 16,
+  boxShadow: "0 3px 12px rgba(0,0,0,0.08)",
+  overflowWrap: "anywhere",
+};
+
+const faqStyle = {
+  background: "#fff",
+  borderRadius: 12,
+  padding: "4px 16px",
+  marginBottom: 10,
+  boxShadow: "0 2px 8px rgba(0,0,0,0.06)",
+};
+
+const summaryStyle = {
+  cursor: "pointer",
+  fontWeight: "bold",
+  fontSize: 18,
+  padding: "12px 0",
+  minHeight: 48,
+};
+
 export default function FamilyGuide({ qualifications = [], lang = "en" }) {
   const t = T[lang] || T.en;
   if (qualifications.length === 0) return null;
 
   return (
     <section style={{ marginTop: 32, textAlign: "left" }}>
-      <h2>{t.title}</h2>
+      <h2 style={{ textAlign: "center" }}>{t.title}</h2>
       <p>{t.intro}</p>
 
       {qualifications.map((q) => {
@@ -114,17 +139,11 @@ export default function FamilyGuide({ qualifications = [], lang = "en" }) {
         const hours = q.minimumDurationHours
           ? `${q.minimumDurationHours}–${q.durationHours}`
           : q.durationHours;
+        const skills = q.skills[lang] || q.skills.en;
+        const progression = q.progression[lang] || q.progression.en;
 
         return (
-          <div
-            key={q.id}
-            style={{
-              border: "1px solid #999",
-              borderRadius: 8,
-              padding: 16,
-              marginBottom: 16,
-            }}
-          >
+          <div key={q.id} style={cardStyle}>
             <h3 style={{ marginTop: 0 }}>{q.name[lang] || q.name.en}</h3>
             <p>
               <strong>{t.level}:</strong> {q.nsqfLevel}
@@ -132,31 +151,32 @@ export default function FamilyGuide({ qualifications = [], lang = "en" }) {
             <p>
               <strong>{t.duration}:</strong> {hours} {t.hours}
               <br />
-              <small>{t.estimate(months)}</small>
+              <small style={{ color: "#555", fontSize: 15 }}>
+                {t.estimate(months)}
+              </small>
             </p>
             <p>
-              <strong>{t.skills}:</strong> {q.skills.slice(0, 4).join(", ")}
+              <strong>{t.skills}:</strong> {skills.slice(0, 4).join(", ")}
             </p>
             <p>
-              <strong>{t.next}:</strong> {q.progression}
+              <strong>{t.next}:</strong> {progression}
             </p>
             <p>
-              <strong>{t.valid}:</strong> {q.validTill} ·{" "}
+              <strong>{t.valid}:</strong> {q.validTill}
+              <br />
               <a href={q.source} target="_blank" rel="noreferrer">
-                {t.record}
+                {t.record} ↗
               </a>
             </p>
           </div>
         );
       })}
 
-      <h3>{t.faqTitle}</h3>
+      <h3 style={{ textAlign: "center", marginTop: 28 }}>{t.faqTitle}</h3>
       {t.faqs.map((f) => (
-        <details key={f.q} style={{ marginBottom: 8 }}>
-          <summary style={{ cursor: "pointer", fontWeight: "bold" }}>
-            {f.q}
-          </summary>
-          <p>{f.a}</p>
+        <details key={f.q} style={faqStyle}>
+          <summary style={summaryStyle}>{f.q}</summary>
+          <p style={{ marginTop: 0, paddingBottom: 8 }}>{f.a}</p>
         </details>
       ))}
     </section>

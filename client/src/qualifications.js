@@ -1,4 +1,3 @@
-
 export const qualifications = [
   {
     id: "solar-pv-installer-electrical",
@@ -22,20 +21,42 @@ export const qualifications = [
       { education: "10th", experience: "3_or_more" },
       { education: "10th", certificate: "yes" },
     ],
-    skills: [
-      "Solar PV site survey",
-      "Solar component procurement",
-      "Electrical component installation",
-      "Testing and commissioning",
-      "Workplace health and safety",
-    ],
-    progression:
-      "Solar Photovoltaic Entrepreneur / Solar PV Junior Engineer (Level 5)",
+    skills: {
+      en: [
+        "Solar PV site survey",
+        "Solar component procurement",
+        "Electrical component installation",
+        "Testing and commissioning",
+        "Workplace health and safety",
+      ],
+      hi: [
+        "सोलर पीवी साइट सर्वे",
+        "सोलर कंपोनेंट की खरीद",
+        "इलेक्ट्रिकल कंपोनेंट की स्थापना",
+        "टेस्टिंग और कमीशनिंग",
+        "कार्यस्थल पर स्वास्थ्य और सुरक्षा",
+      ],
+      mr: [
+        "सोलर पीव्ही साइट सर्वेक्षण",
+        "सोलर घटकांची खरेदी",
+        "विद्युत घटकांची स्थापना",
+        "चाचणी आणि कार्यान्वयन",
+        "कामाच्या ठिकाणी आरोग्य आणि सुरक्षा",
+      ],
+    },
+    progression: {
+      en: "Solar Photovoltaic Entrepreneur / Solar PV Junior Engineer (Level 5)",
+      hi: "सोलर फोटोवोल्टिक उद्यमी / सोलर पीवी जूनियर इंजीनियर (स्तर 5)",
+      mr: "सोलर फोटोव्होल्टाइक उद्योजक / सोलर पीव्ही ज्युनिअर इंजिनिअर (स्तर 5)",
+    },
     source: "https://www.nqr.gov.in/qualifications/11689",
     sourceAuthority: "NCVET - National Qualification Register",
     validTill: "2027-05-29",
-    recommendationNote:
-      "Potential match only. Confirm education, experience and certificate details before enrolment.",
+    recommendationNote: {
+      en: "Potential match only. Confirm education, experience and certificate details before enrolment.",
+      hi: "यह केवल संभावित मेल है। दाख़िले से पहले शिक्षा, अनुभव और प्रमाणपत्र की जानकारी की पुष्टि करें।",
+      mr: "हा केवळ संभाव्य जुळणारा पर्याय आहे. प्रवेशापूर्वी शिक्षण, अनुभव आणि प्रमाणपत्राची खात्री करा.",
+    },
   },
 
   {
@@ -59,20 +80,42 @@ export const qualifications = [
       { education: "12th", experience: "none" },
       { education: "10th", experience: "3_or_more" },
     ],
-    skills: [
-      "Animal examination and handling",
-      "Vaccination and preventive healthcare",
-      "Veterinary first aid",
-      "Animal welfare",
-      "Livestock extension services",
-    ],
-    progression:
-      "Veterinary Field Assistant / Veterinary Clinical Assistant (Level 5)",
+    skills: {
+      en: [
+        "Animal examination and handling",
+        "Vaccination and preventive healthcare",
+        "Veterinary first aid",
+        "Animal welfare",
+        "Livestock extension services",
+      ],
+      hi: [
+        "पशुओं की जाँच और देखरेख",
+        "टीकाकरण और बचाव संबंधी स्वास्थ्य सेवा",
+        "पशु प्राथमिक उपचार",
+        "पशु कल्याण",
+        "पशुधन विस्तार सेवाएँ",
+      ],
+      mr: [
+        "प्राण्यांची तपासणी आणि हाताळणी",
+        "लसीकरण आणि प्रतिबंधात्मक आरोग्यसेवा",
+        "पशू प्रथमोपचार",
+        "प्राणी कल्याण",
+        "पशुधन विस्तार सेवा",
+      ],
+    },
+    progression: {
+      en: "Veterinary Field Assistant / Veterinary Clinical Assistant (Level 5)",
+      hi: "पशु चिकित्सा क्षेत्र सहायक / पशु चिकित्सा क्लिनिकल सहायक (स्तर 5)",
+      mr: "पशुवैद्यकीय क्षेत्र सहायक / पशुवैद्यकीय क्लिनिकल सहायक (स्तर 5)",
+    },
     source: "https://www.nqr.gov.in/qualifications/12981",
     sourceAuthority: "NCVET - National Qualification Register",
     validTill: "2027-11-26",
-    recommendationNote:
-      "Potential match only. Confirm eligibility, NAC requirements where applicable, and training-provider availability.",
+    recommendationNote: {
+      en: "Potential match only. Confirm eligibility, NAC requirements where applicable, and training-provider availability.",
+      hi: "यह केवल संभावित मेल है। पात्रता, जहाँ लागू हो वहाँ NAC की शर्त, और प्रशिक्षण केंद्र की उपलब्धता की पुष्टि करें।",
+      mr: "हा केवळ संभाव्य जुळणारा पर्याय आहे. पात्रता, जिथे लागू असेल तिथे NAC ची अट, आणि प्रशिक्षण केंद्राची उपलब्धता तपासा.",
+    },
   },
 
   {
@@ -95,68 +138,98 @@ export const qualifications = [
       { education: "12th", experience: "none" },
       { education: "10th", experience: "3_or_more" },
     ],
-    skills: [
-      "Agricultural loan product awareness",
-      "Farmer eligibility assessment",
-      "Loan application assistance",
-      "Agricultural insurance support",
-      "Repayment and claim documentation",
-    ],
-    progression: "Agri Service Input Dealer (Level 5)",
+    skills: {
+      en: [
+        "Agricultural loan product awareness",
+        "Farmer eligibility assessment",
+        "Loan application assistance",
+        "Agricultural insurance support",
+        "Repayment and claim documentation",
+      ],
+      hi: [
+        "कृषि ऋण उत्पादों की जानकारी",
+        "किसान की पात्रता का आकलन",
+        "ऋण आवेदन में सहायता",
+        "कृषि बीमा में सहायता",
+        "भुगतान और दावों के दस्तावेज़",
+      ],
+      mr: [
+        "कृषी कर्ज उत्पादनांची माहिती",
+        "शेतकऱ्याच्या पात्रतेचे मूल्यांकन",
+        "कर्ज अर्जासाठी मदत",
+        "पीक विमा सहाय्य",
+        "परतफेड आणि दाव्यांची कागदपत्रे",
+      ],
+    },
+    progression: {
+      en: "Agri Service Input Dealer (Level 5)",
+      hi: "कृषि सेवा इनपुट डीलर (स्तर 5)",
+      mr: "कृषी सेवा निविष्ठा विक्रेता (स्तर 5)",
+    },
     source: "https://www.nqr.gov.in/qualifications/13363",
     sourceAuthority: "NCVET - National Qualification Register",
     validTill: "2028-02-18",
-    recommendationNote:
-      "Potential match only. Confirm eligibility and current training-provider availability.",
+    recommendationNote: {
+      en: "Potential match only. Confirm eligibility and current training-provider availability.",
+      hi: "यह केवल संभावित मेल है। पात्रता और प्रशिक्षण केंद्र की मौजूदा उपलब्धता की पुष्टि करें।",
+      mr: "हा केवळ संभाव्य जुळणारा पर्याय आहे. पात्रता आणि प्रशिक्षण केंद्राची सध्याची उपलब्धता तपासा.",
+    },
   },
 
   {
     id: "integrated-farming-practitioner",
-
     name: {
       en: "Integrated Farming Practitioner",
       hi: "एकीकृत कृषि व्यवसाय विशेषज्ञ",
       mr: "एकात्मिक शेती व्यवसाय तज्ञ",
     },
-
     sector: "Agriculture",
-
     nsqfLevel: 4,
-
     durationHours: 390,
-
     eligibility: [
       "12th pass with no experience",
       "Previous NSQF Level 3.5 with 1.5 years of experience",
       "Previous NSQF Level 3 with 3 years of experience",
     ],
-
-    eligibilityRoutes: [
-      {
-        education: "12th",
-        experience: "none",
-      },
-    ],
-
-    skills: [
-      "Identify compatible farm enterprises",
-      "Integrate different farming enterprises",
-      "Implement biosecurity measures",
-      "Manage integrated farm production",
-      "Harvest and market agricultural produce",
-      "Improve farm sustainability",
-    ],
-
-    progression: "Agri-extension Executive (Level 5)",
-
+    eligibilityRoutes: [{ education: "12th", experience: "none" }],
+    skills: {
+      en: [
+        "Identify compatible farm enterprises",
+        "Integrate different farming enterprises",
+        "Implement biosecurity measures",
+        "Manage integrated farm production",
+        "Harvest and market agricultural produce",
+        "Improve farm sustainability",
+      ],
+      hi: [
+        "संगत कृषि उद्यमों की पहचान",
+        "अलग-अलग कृषि उद्यमों को जोड़ना",
+        "जैव सुरक्षा उपाय लागू करना",
+        "एकीकृत कृषि उत्पादन का प्रबंधन",
+        "कृषि उपज की कटाई और बिक्री",
+        "खेती की स्थिरता बढ़ाना",
+      ],
+      mr: [
+        "सुसंगत शेती उद्योगांची ओळख",
+        "विविध शेती उद्योग एकत्र जोडणे",
+        "जैवसुरक्षा उपाययोजना राबवणे",
+        "एकात्मिक शेती उत्पादनाचे व्यवस्थापन",
+        "शेतमालाची काढणी आणि विक्री",
+        "शेतीची शाश्वतता वाढवणे",
+      ],
+    },
+    progression: {
+      en: "Agri-extension Executive (Level 5)",
+      hi: "कृषि-विस्तार कार्यकारी (स्तर 5)",
+      mr: "कृषी-विस्तार कार्यकारी (स्तर 5)",
+    },
     source: "https://www.nqr.gov.in/qualifications/10866",
-
     sourceAuthority: "NCVET - National Qualification Register",
-
     validTill: "2027-04-30",
-
-    recommendationNote:
-      "Potential match only. Verify education, experience and previous NSQF qualification requirements with the training provider.",
+    recommendationNote: {
+      en: "Potential match only. Verify education, experience and previous NSQF qualification requirements with the training provider.",
+      hi: "यह केवल संभावित मेल है। प्रशिक्षण केंद्र से शिक्षा, अनुभव और पिछली NSQF योग्यता की शर्तों की पुष्टि करें।",
+      mr: "हा केवळ संभाव्य जुळणारा पर्याय आहे. प्रशिक्षण केंद्राकडून शिक्षण, अनुभव आणि मागील NSQF पात्रतेच्या अटींची खात्री करा.",
+    },
   },
-
 ];

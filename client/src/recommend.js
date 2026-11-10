@@ -1,4 +1,3 @@
-
 import { trades } from "./trades";
 import { qualifications } from "./qualifications";
 
@@ -32,72 +31,46 @@ export function recommend(answers) {
     .slice(0, 3);
 }
 
-// Assess a qualification's currently configured entry routes
+// Assess a qualification's configured entry routes.
+// Returns language-neutral codes; the screen picks the text for the chosen language.
+//   status: "match" | "not_established" | "verify"
+//   key: "match" | "tenth_not_established" | "twelfth_verify" | "other_verify"
 function assessEligibility(answers, qualification) {
   const routes = qualification.eligibilityRoutes || [];
 
   for (const route of routes) {
-    // Check education
     if (answers.education !== route.education) {
       continue;
     }
 
-    // Check experience if required
-    if (
-      route.experience &&
-      answers.experience !== route.experience
-    ) {
+    if (route.experience && answers.experience !== route.experience) {
       continue;
     }
 
-    // Check certificate if required
-    if (
-      route.certificate &&
-      answers.certificate !== route.certificate
-    ) {
+    if (route.certificate && answers.certificate !== route.certificate) {
       continue;
     }
 
-    return {
-      status: "Potential entry-route match",
-      message:
-        "Your answers match a listed entry route. Your original certificates, experience documents and other requirements must be verified by the training provider.",
-      matchedRoute: route,
-    };
+    return { status: "match", key: "match", matchedRoute: route };
   }
 
-  // Explain why no route was matched
   if (
     answers.education === "10th" &&
     answers.experience !== "3_or_more" &&
     answers.certificate !== "yes"
   ) {
     return {
-      status: "Entry criteria not established",
-      message:
-        "The currently configured 10th-pass routes require 3 years of experience or an accepted technical certificate, where applicable.",
+      status: "not_established",
+      key: "tenth_not_established",
       matchedRoute: null,
     };
   }
 
-  if (
-    answers.education === "12th" &&
-    answers.experience !== "none"
-  ) {
-    return {
-      status: "Needs verification",
-      message:
-        "The configured 12th-pass route specifies no experience. Please ask a counsellor to verify your situation.",
-      matchedRoute: null,
-    };
+  if (answers.education === "12th" && answers.experience !== "none") {
+    return { status: "verify", key: "twelfth_verify", matchedRoute: null };
   }
 
-  return {
-    status: "Needs verification",
-    message:
-      "Your answers do not establish a configured entry route. A counsellor can review other qualification pathways.",
-    matchedRoute: null,
-  };
+  return { status: "verify", key: "other_verify", matchedRoute: null };
 }
 
 // NSQF qualification recommendations
@@ -107,10 +80,7 @@ export function recommendQualifications(answers) {
       let score = 0;
 
       // Education relevance
-      if (
-        answers.education === "12th" ||
-        answers.education === "graduate"
-      ) {
+      if (answers.education === "12th" || answers.education === "graduate") {
         score += 3;
       } else if (answers.education === "10th") {
         score += 2;
@@ -145,16 +115,13 @@ export function recommendQualifications(answers) {
         score += 1;
       }
 
-      const eligibility = assessEligibility(
-        answers,
-        qualification
-      );
+      const eligibility = assessEligibility(answers, qualification);
 
       return {
         ...qualification,
         score,
         eligibilityStatus: eligibility.status,
-        eligibilityMessage: eligibility.message,
+        eligibilityKey: eligibility.key,
         matchedRoute: eligibility.matchedRoute,
       };
     })

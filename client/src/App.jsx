@@ -99,6 +99,89 @@ const ui = {
   },
 };
 
+// Eligibility text, by language
+const elig = {
+  en: {
+    status: {
+      match: "Potential entry-route match",
+      not_established: "Entry criteria not established",
+      verify: "Needs verification",
+    },
+    message: {
+      match:
+        "Your answers match a listed entry route. Your original certificates, experience documents and other requirements must be verified by the training provider.",
+      tenth_not_established:
+        "The currently configured 10th-pass routes require 3 years of experience or an accepted technical certificate, where applicable.",
+      twelfth_verify:
+        "The configured 12th-pass route specifies no experience. Please ask a counsellor to verify your situation.",
+      other_verify:
+        "Your answers do not establish a configured entry route. A counsellor can review other qualification pathways.",
+    },
+    route: {
+      twelfth: "12th pass with no experience",
+      tenthCert: "10th pass with NTC/NAC/CITS",
+      tenthExp: "10th pass with 3 years of experience",
+      other: "Other entry route",
+    },
+  },
+  hi: {
+    status: {
+      match: "संभावित प्रवेश मार्ग से मेल",
+      not_established: "प्रवेश की शर्तें तय नहीं",
+      verify: "जाँच ज़रूरी",
+    },
+    message: {
+      match:
+        "आपके जवाब एक सूचीबद्ध प्रवेश मार्ग से मेल खाते हैं। आपके मूल प्रमाणपत्र, अनुभव के दस्तावेज़ और अन्य शर्तें प्रशिक्षण प्रदाता द्वारा जाँची जाएँगी।",
+      tenth_not_established:
+        "फ़िलहाल जोड़े गए 10वीं पास के मार्गों के लिए 3 साल का अनुभव या मान्य तकनीकी प्रमाणपत्र (जहाँ लागू हो) ज़रूरी है।",
+      twelfth_verify:
+        "12वीं पास का जोड़ा गया मार्ग बिना अनुभव वालों के लिए है। कृपया काउंसलर से अपनी स्थिति जँचवाएँ।",
+      other_verify:
+        "आपके जवाबों से कोई जोड़ा गया प्रवेश मार्ग तय नहीं होता। काउंसलर दूसरे योग्यता मार्ग देख सकते हैं।",
+    },
+    route: {
+      twelfth: "12वीं पास, बिना अनुभव",
+      tenthCert: "10वीं पास, NTC/NAC/CITS के साथ",
+      tenthExp: "10वीं पास, 3 साल के अनुभव के साथ",
+      other: "अन्य प्रवेश मार्ग",
+    },
+  },
+  mr: {
+    status: {
+      match: "संभाव्य प्रवेश मार्गाशी जुळते",
+      not_established: "प्रवेशाच्या अटी निश्चित नाहीत",
+      verify: "तपासणी आवश्यक",
+    },
+    message: {
+      match:
+        "तुमची उत्तरे सूचीतील एका प्रवेश मार्गाशी जुळतात. तुमची मूळ प्रमाणपत्रे, अनुभवाची कागदपत्रे आणि इतर अटी प्रशिक्षण संस्थेकडून तपासल्या जातील.",
+      tenth_not_established:
+        "सध्या नोंदवलेल्या 10वी उत्तीर्णांच्या मार्गांसाठी 3 वर्षांचा अनुभव किंवा मान्य तांत्रिक प्रमाणपत्र (जिथे लागू असेल तिथे) आवश्यक आहे.",
+      twelfth_verify:
+        "12वी उत्तीर्णांसाठी नोंदवलेला मार्ग अनुभव नसलेल्यांसाठी आहे. कृपया समुपदेशकाकडून तुमची स्थिती तपासून घ्या.",
+      other_verify:
+        "तुमच्या उत्तरांवरून कोणताही नोंदवलेला प्रवेश मार्ग निश्चित होत नाही. समुपदेशक इतर पात्रता मार्ग पाहू शकतात.",
+    },
+    route: {
+      twelfth: "12वी उत्तीर्ण, अनुभवाशिवाय",
+      tenthCert: "10वी उत्तीर्ण, NTC/NAC/CITS सह",
+      tenthExp: "10वी उत्तीर्ण, 3 वर्षांच्या अनुभवासह",
+      other: "इतर प्रवेश मार्ग",
+    },
+  },
+};
+
+function routeLabel(route, lang) {
+  const r = elig[lang].route;
+  if (route.education === "12th") return r.twelfth;
+  if (route.education === "10th" && route.certificate === "yes")
+    return r.tenthCert;
+  if (route.education === "10th" && route.experience === "3_or_more")
+    return r.tenthExp;
+  return r.other;
+}
+
 const suggestedTitle = {
   en: "Paths that may suit you",
   hi: "आपके लिए ये रास्ते अच्छे हो सकते हैं",
@@ -432,30 +515,21 @@ export default function App() {
                 <p>
                   <span
                     className={`disha-badge ${
-                      qualification.eligibilityStatus ===
-                      "Potential entry-route match"
+                      qualification.eligibilityStatus === "match"
                         ? "ok"
                         : "warn"
                     }`}
                   >
-                    {qualification.eligibilityStatus}
+                    {elig[lang].status[qualification.eligibilityStatus]}
                   </span>
                 </p>
 
-                <p>{qualification.eligibilityMessage}</p>
+                <p>{elig[lang].message[qualification.eligibilityKey]}</p>
 
                 {qualification.matchedRoute && (
                   <p>
                     <strong>{ui[lang].matchedRoute}:</strong>{" "}
-                    {qualification.matchedRoute.education === "12th"
-                      ? "12th pass with no experience"
-                      : qualification.matchedRoute.education === "10th" &&
-                        qualification.matchedRoute.certificate === "yes"
-                      ? "10th pass with NTC/NAC/CITS"
-                      : qualification.matchedRoute.education === "10th" &&
-                        qualification.matchedRoute.experience === "3_or_more"
-                      ? "10th pass with 3 years of experience"
-                      : "Other entry route"}
+                    {routeLabel(qualification.matchedRoute, lang)}
                   </p>
                 )}
 
@@ -470,7 +544,8 @@ export default function App() {
                 </p>
 
                 <p style={{ fontSize: 14, color: "#555" }}>
-                  {qualification.recommendationNote}
+                  {qualification.recommendationNote[lang] ||
+                    qualification.recommendationNote.en}
                 </p>
               </div>
             ))
