@@ -1,3 +1,4 @@
+
 import { useState } from "react";
 import { collection, addDoc, serverTimestamp } from "firebase/firestore";
 import { db } from "./firebase";
@@ -124,6 +125,7 @@ const elig = {
       other: "Other entry route",
     },
   },
+
   hi: {
     status: {
       match: "संभावित प्रवेश मार्ग से मेल",
@@ -147,6 +149,7 @@ const elig = {
       other: "अन्य प्रवेश मार्ग",
     },
   },
+
   mr: {
     status: {
       match: "संभाव्य प्रवेश मार्गाशी जुळते",
@@ -174,11 +177,17 @@ const elig = {
 
 function routeLabel(route, lang) {
   const r = elig[lang].route;
+
   if (route.education === "12th") return r.twelfth;
-  if (route.education === "10th" && route.certificate === "yes")
+
+  if (route.education === "10th" && route.certificate === "yes") {
     return r.tenthCert;
-  if (route.education === "10th" && route.experience === "3_or_more")
+  }
+
+  if (route.education === "10th" && route.experience === "3_or_more") {
     return r.tenthExp;
+  }
+
   return r.other;
 }
 
@@ -268,6 +277,7 @@ export default function App() {
     setCallStatus("");
 
     try {
+      // Step 1: Save callback request in Firestore
       await addDoc(collection(db, "escalations"), {
         phone,
         language: lang,
@@ -276,6 +286,32 @@ export default function App() {
         createdAt: serverTimestamp(),
       });
 
+      // Step 2: Send notification email through Vercel API
+      try {
+        const response = await fetch("/api/notify", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            phone,
+            language: lang,
+            answers,
+          }),
+        });
+
+        if (!response.ok) {
+          const errorText = await response.text();
+          console.error("Email notification failed:", errorText);
+        } else {
+          const result = await response.json();
+          console.log("Email notification result:", result);
+        }
+      } catch (emailError) {
+        console.error("Email API error:", emailError);
+      }
+
+      // Callback is saved even if email notification fails
       setCallStatus("sent");
     } catch (error) {
       console.error("Callback request error:", error);
@@ -378,12 +414,14 @@ export default function App() {
         >
           English
         </button>
+
         <button
           className={`disha-lang-btn ${lang === "hi" ? "active" : ""}`}
           onClick={() => setLang("hi")}
         >
           हिंदी
         </button>
+
         <button
           className={`disha-lang-btn ${lang === "mr" ? "active" : ""}`}
           onClick={() => setLang("mr")}
@@ -582,7 +620,9 @@ export default function App() {
               <p>{ui[lang].sent}</p>
             ) : (
               <>
-                <label htmlFor="disha-phone">{ui[lang].phoneLabel}</label>
+                <label htmlFor="disha-phone">
+                  {ui[lang].phoneLabel}
+                </label>
 
                 <input
                   id="disha-phone"
@@ -598,11 +638,15 @@ export default function App() {
                 />
 
                 {callStatus === "bad" && (
-                  <p className="disha-error">{ui[lang].badPhone}</p>
+                  <p className="disha-error">
+                    {ui[lang].badPhone}
+                  </p>
                 )}
 
                 {callStatus === "error" && (
-                  <p className="disha-error">{ui[lang].sendError}</p>
+                  <p className="disha-error">
+                    {ui[lang].sendError}
+                  </p>
                 )}
 
                 <button
